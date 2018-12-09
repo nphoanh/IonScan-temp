@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform  } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { AuthService } from '../../service/auth.service';
@@ -33,6 +33,7 @@ export class ImageIdentityBackPage {
 		private sqlite: SQLite,
 		private auth: AuthService,
 		private toast: Toast,
+		private platform: Platform
 		) {
 	}
 
@@ -72,52 +73,56 @@ export class ImageIdentityBackPage {
 
 	savebase64AsFile(folderPath, fileName, base64, contentType){
 		var DataBlob = this.b64toBlob(base64,contentType,512);
-		this.file.writeFile(folderPath, fileName, DataBlob).catch(e => console.log('File didn\'t save: ' + e.message));       
+		this.platform.ready().then(() => {
+			this.file.writeFile(folderPath, fileName, DataBlob).catch(e => console.log('File didn\'t save: ' + e.message));       
+		}).catch(e => console.log(e));   
 	}    
 
 	saveImage(){
-		let canvas = document.getElementById('canvasOutputIDBack') as HTMLCanvasElement;
-		this.pictureBack = canvas.toDataURL();  
-		let base = this.pictureBack.substr(this.pictureBack.lastIndexOf(',')+1);
-		let nameFile = this.image.name + '.' + 'png';
-		if (this.data != null) { 
-			let nameEmail = this.data.substr(0,this.data.lastIndexOf('@'));
-			let nameDB = nameEmail + '.db';
-			let folderPath = this.file.externalRootDirectory + 'IonScan' + '/' + 'Chứng minh thư' + '.' + nameEmail;                        
-			this.sqlite.create({
-				name: nameDB,
-				location: 'default'
-			}).then((db: SQLiteObject) => {                
-				db.executeSql('INSERT INTO image VALUES (NULL,?,?,?,?,?,?,3)', [this.image.name,this.image.date,folderPath,this.pictureBack,this.image.type,this.image.upload]).then(res => {
-					this.savebase64AsFile(folderPath, nameFile, base, this.image.type); 
-					this.navCtrl.push(InfoIdentityPage,{
-						pictureFront:this.pictureFront,
-						pictureBack:this.pictureBack,
-						imagename:this.imagename
-					}); 
-				}).catch(e => { this.toast.show('Trùng tên ảnh', '5000', 'center').subscribe(toast => console.log(toast))});                   
-			}).catch(e => console.log('SQLite didn\'t create: ' + e.message));                     
-		}
+		this.platform.ready().then(() => {
+			let canvas = document.getElementById('canvasOutputIDBack') as HTMLCanvasElement;
+			this.pictureBack = canvas.toDataURL();  
+			let base = this.pictureBack.substr(this.pictureBack.lastIndexOf(',')+1);
+			let nameFile = this.image.name + '.' + 'png';
+			if (this.data != null) { 
+				let nameEmail = this.data.substr(0,this.data.lastIndexOf('@'));
+				let nameDB = nameEmail + '.db';
+				let folderPath = this.file.externalRootDirectory + 'IonScan' + '/' + 'Chứng minh thư' + '.' + nameEmail;                        
+				this.sqlite.create({
+					name: nameDB,
+					location: 'default'
+				}).then((db: SQLiteObject) => {                
+					db.executeSql('INSERT INTO image VALUES (NULL,?,?,?,?,?,?,3)', [this.image.name,this.image.date,folderPath,this.pictureBack,this.image.type,this.image.upload]).then(res => {
+						this.savebase64AsFile(folderPath, nameFile, base, this.image.type); 
+						this.navCtrl.push(InfoIdentityPage,{
+							pictureFront:this.pictureFront,
+							pictureBack:this.pictureBack,
+							imagename:this.imagename
+						}); 
+					}).catch(e => { this.toast.show('Trùng tên ảnh', '5000', 'center').subscribe(toast => console.log(toast))});                   
+				}).catch(e => console.log('SQLite didn\'t create: ' + e.message));                     
+			}
 
-		else {
-			let namePhone = this.dataPhone.substr(this.dataPhone.lastIndexOf('+')+1);
-			let nameDBPhone = 'u' + namePhone;
-			let nameDB = nameDBPhone + '.db';
-			let folderPath = this.file.externalRootDirectory + 'IonScan' + '/' + 'Chứng minh thư' + '.' + namePhone;
-			this.sqlite.create({
-				name: nameDB,
-				location: 'default'
-			}).then((db: SQLiteObject) => {                
-				db.executeSql('INSERT INTO image VALUES (NULL,?,?,?,?,?,?,3)', [this.image.name,this.image.date,folderPath,this.pictureBack,this.image.type,this.image.upload]).then(res => {
-					this.savebase64AsFile(folderPath, nameFile, base, this.image.type); 
-					this.navCtrl.push(InfoIdentityPage,{
-						pictureFront:this.pictureFront,
-						pictureBack:this.pictureBack,
-						imagename:this.imagename
-					}); 
-				}).catch(e => { this.toast.show('Trùng tên ảnh', '5000', 'center').subscribe(toast => console.log(toast))});                   
-			}).catch(e => console.log('SQLite didn\'t create: ' + e.message));   
-		}                  
+			else {
+				let namePhone = this.dataPhone.substr(this.dataPhone.lastIndexOf('+')+1);
+				let nameDBPhone = 'u' + namePhone;
+				let nameDB = nameDBPhone + '.db';
+				let folderPath = this.file.externalRootDirectory + 'IonScan' + '/' + 'Chứng minh thư' + '.' + namePhone;
+				this.sqlite.create({
+					name: nameDB,
+					location: 'default'
+				}).then((db: SQLiteObject) => {                
+					db.executeSql('INSERT INTO image VALUES (NULL,?,?,?,?,?,?,3)', [this.image.name,this.image.date,folderPath,this.pictureBack,this.image.type,this.image.upload]).then(res => {
+						this.savebase64AsFile(folderPath, nameFile, base, this.image.type); 
+						this.navCtrl.push(InfoIdentityPage,{
+							pictureFront:this.pictureFront,
+							pictureBack:this.pictureBack,
+							imagename:this.imagename
+						}); 
+					}).catch(e => { this.toast.show('Trùng tên ảnh', '5000', 'center').subscribe(toast => console.log(toast))});                   
+				}).catch(e => console.log('SQLite didn\'t create: ' + e.message));   
+			}               
+		}).catch(e => console.log(e));    
 	}
 	
 	rotateRight() {

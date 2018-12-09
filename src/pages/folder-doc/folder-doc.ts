@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { AuthService } from '../../service/auth.service';
 import { File } from '@ionic-native/file';
@@ -25,7 +25,8 @@ export class FolderDocPage {
 		private sqlite: SQLite,
 		private auth: AuthService,
 		private file: File,
-		public alertCtrl: AlertController
+		public alertCtrl: AlertController,
+		private platform: Platform
 		) {
 	}
 
@@ -90,69 +91,71 @@ export class FolderDocPage {
 	}
 
 	deleteImage(imageid){
-		if (this.data != null) {
-			let nameEmail = this.data.substr(0,this.data.lastIndexOf('@'));
-			let nameDB = nameEmail + '.db';			
-			let prompt = this.alertCtrl.create({
-				title: 'Bạn có đồng ý xóa?',
-				buttons: [
-				{ text: 'Hủy',
-				handler: data => { console.log('Cancel clicked'); }
-			},
-			{ text: 'OK',
-			handler: data => {
-				this.sqlite.create({
-					name: nameDB,
-					location: 'default'
-				}).then((db: SQLiteObject) => {		
-					db.executeSql('SELECT name, path FROM image WHERE imageid=?', [imageid])
-					.then(res => {
-						if(res.rows.length > 0) {
-							this.image.name = res.rows.item(0).name;
-							this.image.path = res.rows.item(0).path;						
-						}		         
-						let name = this.image.name + '.' + 'png';	
-						this.file.removeFile(this.image.path, name).catch(e => console.log('Image didn\'t remove in device: ' + e.message));          						
-						db.executeSql('DELETE FROM image WHERE imageid=?', [imageid]).then(res => { 
-							this.getData();        
-						}).catch(e => console.log('Image didn\'t remove in table: ' + e.message));
-					}).catch(e => console.log('Image didn\'t select: ' + e.message));	
-				}).catch(e => console.log('SQLite didn\'t create: ' + e.message));
-			}}]
-		});prompt.present();				
-		}
-		else {
-			let namePhone = this.dataPhone.substr(this.dataPhone.lastIndexOf('+')+1);
-			let nameDBPhone = 'u' + namePhone;
-			let nameDB = nameDBPhone + '.db';
-			let prompt = this.alertCtrl.create({
-				title: 'Bạn có đồng ý xóa?',
-				buttons: [
-				{ text: 'Hủy',
-				handler: data => { console.log('Cancel clicked'); }
-			},
-			{ text: 'OK',
-			handler: data => {
-				this.sqlite.create({
-					name: nameDB,
-					location: 'default'
-				}).then((db: SQLiteObject) => {		
-					db.executeSql('SELECT name, path FROM image WHERE imageid=?', [imageid])
-					.then(res => {
-						if(res.rows.length > 0) {
-							this.image.name = res.rows.item(0).name;
-							this.image.path = res.rows.item(0).path;						
-						}		         
-						let name = this.image.name + '.' + 'png';	
-						this.file.removeFile(this.image.path, name).catch(e => console.log('Image didn\'t remove in device: ' + e.message));          						
-						db.executeSql('DELETE FROM image WHERE imageid=?', [imageid]).then(res => { 
-							this.getData();        
-						}).catch(e => console.log('Image didn\'t remove in table: ' + e.message));
-					}).catch(e => console.log('Image didn\'t select: ' + e.message));	
-				}).catch(e => console.log('SQLite didn\'t create: ' + e.message));
-			}}]
-		});prompt.present();
-		}
+		this.platform.ready().then(() => {
+			if (this.data != null) {
+				let nameEmail = this.data.substr(0,this.data.lastIndexOf('@'));
+				let nameDB = nameEmail + '.db';			
+				let prompt = this.alertCtrl.create({
+					title: 'Bạn có đồng ý xóa?',
+					buttons: [
+					{ text: 'Hủy',
+					handler: data => { console.log('Cancel clicked'); }
+				},
+				{ text: 'OK',
+				handler: data => {
+					this.sqlite.create({
+						name: nameDB,
+						location: 'default'
+					}).then((db: SQLiteObject) => {		
+						db.executeSql('SELECT name, path FROM image WHERE imageid=?', [imageid])
+						.then(res => {
+							if(res.rows.length > 0) {
+								this.image.name = res.rows.item(0).name;
+								this.image.path = res.rows.item(0).path;						
+							}		         
+							let name = this.image.name + '.' + 'png';	
+							this.file.removeFile(this.image.path, name).catch(e => console.log('Image didn\'t remove in device: ' + e.message));          						
+							db.executeSql('DELETE FROM image WHERE imageid=?', [imageid]).then(res => { 
+								this.getData();        
+							}).catch(e => console.log('Image didn\'t remove in table: ' + e.message));
+						}).catch(e => console.log('Image didn\'t select: ' + e.message));	
+					}).catch(e => console.log('SQLite didn\'t create: ' + e.message));
+				}}]
+			});prompt.present();				
+			}
+			else {
+				let namePhone = this.dataPhone.substr(this.dataPhone.lastIndexOf('+')+1);
+				let nameDBPhone = 'u' + namePhone;
+				let nameDB = nameDBPhone + '.db';
+				let prompt = this.alertCtrl.create({
+					title: 'Bạn có đồng ý xóa?',
+					buttons: [
+					{ text: 'Hủy',
+					handler: data => { console.log('Cancel clicked'); }
+				},
+				{ text: 'OK',
+				handler: data => {
+					this.sqlite.create({
+						name: nameDB,
+						location: 'default'
+					}).then((db: SQLiteObject) => {		
+						db.executeSql('SELECT name, path FROM image WHERE imageid=?', [imageid])
+						.then(res => {
+							if(res.rows.length > 0) {
+								this.image.name = res.rows.item(0).name;
+								this.image.path = res.rows.item(0).path;						
+							}		         
+							let name = this.image.name + '.' + 'png';	
+							this.file.removeFile(this.image.path, name).catch(e => console.log('Image didn\'t remove in device: ' + e.message));          						
+							db.executeSql('DELETE FROM image WHERE imageid=?', [imageid]).then(res => { 
+								this.getData();        
+							}).catch(e => console.log('Image didn\'t remove in table: ' + e.message));
+						}).catch(e => console.log('Image didn\'t select: ' + e.message));	
+					}).catch(e => console.log('SQLite didn\'t create: ' + e.message));
+				}}]
+			});prompt.present();
+			}
+		}).catch(e => console.log(e));  
 	}
 
 	editImage(imageid,name,path,base64){

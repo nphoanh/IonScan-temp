@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { AuthService } from '../../service/auth.service';
@@ -31,6 +31,7 @@ export class ImageIdentityPage {
         private sqlite: SQLite,
         private auth: AuthService,
         private toast: Toast,
+        private platform: Platform
         ) {
     }
 
@@ -70,10 +71,13 @@ export class ImageIdentityPage {
 
     savebase64AsFile(folderPath, fileName, base64, contentType){
         var DataBlob = this.b64toBlob(base64,contentType,512);
+        this.platform.ready().then(() => {
         this.file.writeFile(folderPath, fileName, DataBlob).catch(e => console.log('File didn\'t save: ' + e.message));       
+        }).catch(e => console.log(e));     
     }    
 
     saveImage(){
+        this.platform.ready().then(() => {
         let canvas = document.getElementById('canvasOutputIdentity') as HTMLCanvasElement;
         this.pictureFront = canvas.toDataURL();   
         let base = this.pictureFront.substr(this.pictureFront.lastIndexOf(',')+1);
@@ -112,7 +116,8 @@ export class ImageIdentityPage {
                     }); 
                 }).catch(e => { this.toast.show('Trùng tên ảnh', '5000', 'center').subscribe(toast => console.log(toast))});                   
             }).catch(e => console.log('SQLite didn\'t create: ' + e.message));   
-        }                    
+        }      
+        }).catch(e => console.log(e));               
     }
 
     rotateRight() {

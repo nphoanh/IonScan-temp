@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, MenuController } from 'ionic-angular';
+import { NavController, MenuController, Platform  } from 'ionic-angular';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { AuthService } from '../../service/auth.service';
 import { File } from '@ionic-native/file';
- 
+
 import { FolderPage } from '../folder/folder';
 import { AddFolderPage } from '../add-folder/add-folder';
 import { EditFolderPage } from '../edit-folder/edit-folder';
@@ -30,6 +30,7 @@ export class HomePage {
     private auth: AuthService,
     private file: File,    
     public menuCtrl:MenuController,  
+    private platform: Platform
     ) { 
     this.menuCtrl.enable(true, 'myMenu');
   }
@@ -124,49 +125,50 @@ export class HomePage {
   }
 
   deleteFolder(folderid) {
-    if (this.data != null) {
-      let nameEmail = this.data.substr(0,this.data.lastIndexOf('@'));
-      let nameDB = nameEmail + '.db';
-      this.sqlite.create({
-        name: nameDB,
-        location: 'default'
-      }).then((db: SQLiteObject) => {
-        db.executeSql('SELECT name FROM folder WHERE folderid=?', [folderid])
-        .then(res => {
-          if(res.rows.length > 0) {            
-            this.folder.name = res.rows.item(0).name;
-          }          
-          let name = this.folder.name + '.' + nameEmail;
-          this.file.removeRecursively(this.path, name).catch(e => console.log('Folder didn\'t remove in device: ' + e.message));          
-        }).catch(e => console.log('Folder didn\'t remove: ' + e.message));
+    this.platform.ready().then(() => {
+      if (this.data != null) {
+        let nameEmail = this.data.substr(0,this.data.lastIndexOf('@'));
+        let nameDB = nameEmail + '.db';
+        this.sqlite.create({
+          name: nameDB,
+          location: 'default'
+        }).then((db: SQLiteObject) => {
+          db.executeSql('SELECT name FROM folder WHERE folderid=?', [folderid])
+          .then(res => {
+            if(res.rows.length > 0) {            
+              this.folder.name = res.rows.item(0).name;
+            }          
+            let name = this.folder.name + '.' + nameEmail;
+            this.file.removeRecursively(this.path, name).catch(e => console.log('Folder didn\'t remove in device: ' + e.message));          
+          }).catch(e => console.log('Folder didn\'t remove: ' + e.message));
 
-        db.executeSql('DELETE FROM folder WHERE folderid=?', [folderid]).then(res => { 
-          this.getData();        
-        }).catch(e => console.log('Folder didn\'t remove in table: ' + e.message));
-      }).catch(e => console.log('SQLite didn\'t create: ' + e.message));
-    }
-
-    else {
-      let namePhone = this.dataPhone.substr(this.dataPhone.lastIndexOf('+')+1);
-      let nameDBPhone = 'u' + namePhone;
-      let nameDB = nameDBPhone + '.db';
-      this.sqlite.create({
-        name: nameDB,
-        location: 'default'
-      }).then((db: SQLiteObject) => {
-        db.executeSql('SELECT name FROM folder WHERE folderid=?', [folderid])
-        .then(res => {
-          if(res.rows.length > 0) {            
-            this.folder.name = res.rows.item(0).name;
-          }          
-          let name = this.folder.name + '.' + nameDB;
-          this.file.removeRecursively(this.path, name).catch(e => console.log('Folder didn\'t remove in device: ' + e.message));          
-        }).catch(e => console.log('Folder didn\'t remove: ' + e.message));
-        db.executeSql('DELETE FROM folder WHERE folderid=?', [folderid]).then(res => { 
-          this.getData();        
-        }).catch(e => console.log('Folder didn\'t remove in table: ' + e.message));
-      }).catch(e => console.log('SQLite didn\'t create: ' + e.message));
-    }
+          db.executeSql('DELETE FROM folder WHERE folderid=?', [folderid]).then(res => { 
+            this.getData();        
+          }).catch(e => console.log('Folder didn\'t remove in table: ' + e.message));
+        }).catch(e => console.log('SQLite didn\'t create: ' + e.message));
+      }
+      else {
+        let namePhone = this.dataPhone.substr(this.dataPhone.lastIndexOf('+')+1);
+        let nameDBPhone = 'u' + namePhone;
+        let nameDB = nameDBPhone + '.db';
+        this.sqlite.create({
+          name: nameDB,
+          location: 'default'
+        }).then((db: SQLiteObject) => {
+          db.executeSql('SELECT name FROM folder WHERE folderid=?', [folderid])
+          .then(res => {
+            if(res.rows.length > 0) {            
+              this.folder.name = res.rows.item(0).name;
+            }          
+            let name = this.folder.name + '.' + nameDB;
+            this.file.removeRecursively(this.path, name).catch(e => console.log('Folder didn\'t remove in device: ' + e.message));          
+          }).catch(e => console.log('Folder didn\'t remove: ' + e.message));
+          db.executeSql('DELETE FROM folder WHERE folderid=?', [folderid]).then(res => { 
+            this.getData();        
+          }).catch(e => console.log('Folder didn\'t remove in table: ' + e.message));
+        }).catch(e => console.log('SQLite didn\'t create: ' + e.message));
+      }
+    }).catch(e => console.log(e));   
   }
 
 }
