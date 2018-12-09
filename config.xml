@@ -3,7 +3,7 @@
     <name>IonScan</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.1.201:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -94,5 +94,6 @@
     <plugin name="cordova-plugin-firebase-authentication" spec="1.0.1">
         <variable name="FIREBASE_AUTH_VERSION" value="16.0.5" />
     </plugin>
+    <allow-navigation href="http://192.168.1.201:8100" sessionid="2b0d79dd" />
     <engine name="android" spec="7.1.4" />
 </widget>

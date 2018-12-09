@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { AuthService } from '../../service/auth.service';
 import { File } from '@ionic-native/file';
 
 declare var cv: any;
- 
+
 @IonicPage()
 @Component({
 	selector: 'page-edit-image',
@@ -29,6 +29,7 @@ export class EditImagePage {
 		private sqlite: SQLite,
 		private auth: AuthService,
 		private file: File,
+		private platform: Platform
 		) {
 	}
 
@@ -68,52 +69,56 @@ export class EditImagePage {
 
 	savebase64AsFile(folderPath, fileName, base64, contentType){
 		var DataBlob = this.b64toBlob(base64,contentType,512);
-		this.file.writeFile(folderPath, fileName, DataBlob).catch(e => console.log('File didn\'t save: ' + e.message));       
+		this.platform.ready().then(() => {
+			this.file.writeFile(folderPath, fileName, DataBlob).catch(e => console.log('File didn\'t save: ' + e.message));       
+		}).catch(e => console.log(e)); 
 	}    		
 
 	updateImage() {
-		let canvas = document.getElementById('canvasOutputEdit') as HTMLCanvasElement;
-		this.picture = canvas.toDataURL();        
-		let base = this.picture.substr(this.picture.lastIndexOf(',')+1);
-		if (this.data != null) {
-			let nameEmail = this.data.substr(0,this.data.lastIndexOf('@'));
-			let nameDB = nameEmail + '.db'; 	
-			let name = this.imagename + '.' + 'png';
-			let newName = this.image.name + '.' + 'png';	
-			this.sqlite.create({
-				name: nameDB,
-				location: 'default'
-			}).then((db: SQLiteObject) => {
-				db.executeSql('UPDATE image SET name=?,base64=? WHERE imageid=?',[this.image.name,this.picture,this.imageid]).then(res => {
-					this.file.removeFile(this.path, name).then(e => {
-						this.savebase64AsFile(this.path, newName, base, this.image.type); 
-						this.navCtrl.pop().then(()=>{
-							this.navCtrl.pop()
-						});
-					}).catch(e => console.log('Image didn\'t remove: ' + e.message));					
-				}).catch(e => console.log(e));                   
-			}).catch(e => console.log('SQLite didn\'t create: ' + e.message));	
-		}
-		else {
-			let namePhone = this.dataPhone.substr(this.dataPhone.lastIndexOf('+')+1);
-			let nameDBPhone = 'u' + namePhone;
-			let nameDB = nameDBPhone + '.db';
-			let name = this.imagename + '.' + 'png';
-			let newName = this.image.name + '.' + 'png';	
-			this.sqlite.create({
-				name: nameDB,
-				location: 'default'
-			}).then((db: SQLiteObject) => {
-				db.executeSql('UPDATE image SET name=?,base64=? WHERE imageid=?',[this.image.name,this.picture,this.imageid]).then(res => {
-					this.file.removeFile(this.path, name).then(e => {
-						this.savebase64AsFile(this.path, newName, base, this.image.type); 
-						this.navCtrl.pop().then(()=>{
-							this.navCtrl.pop()
-						});
-					}).catch(e => console.log('Image didn\'t remove: ' + e.message));	
-				}).catch(e => console.log(e));                   
-			}).catch(e => console.log('SQLite didn\'t create: ' + e.message));	
-		}
+		this.platform.ready().then(() => {
+			let canvas = document.getElementById('canvasOutputEdit') as HTMLCanvasElement;
+			this.picture = canvas.toDataURL();        
+			let base = this.picture.substr(this.picture.lastIndexOf(',')+1);
+			if (this.data != null) {
+				let nameEmail = this.data.substr(0,this.data.lastIndexOf('@'));
+				let nameDB = nameEmail + '.db'; 	
+				let name = this.imagename + '.' + 'png';
+				let newName = this.image.name + '.' + 'png';	
+				this.sqlite.create({
+					name: nameDB,
+					location: 'default'
+				}).then((db: SQLiteObject) => {
+					db.executeSql('UPDATE image SET name=?,base64=? WHERE imageid=?',[this.image.name,this.picture,this.imageid]).then(res => {
+						this.file.removeFile(this.path, name).then(e => {
+							this.savebase64AsFile(this.path, newName, base, this.image.type); 
+							this.navCtrl.pop().then(()=>{
+								this.navCtrl.pop()
+							});
+						}).catch(e => console.log('Image didn\'t remove: ' + e.message));					
+					}).catch(e => console.log(e));                   
+				}).catch(e => console.log('SQLite didn\'t create: ' + e.message));	
+			}
+			else {
+				let namePhone = this.dataPhone.substr(this.dataPhone.lastIndexOf('+')+1);
+				let nameDBPhone = 'u' + namePhone;
+				let nameDB = nameDBPhone + '.db';
+				let name = this.imagename + '.' + 'png';
+				let newName = this.image.name + '.' + 'png';	
+				this.sqlite.create({
+					name: nameDB,
+					location: 'default'
+				}).then((db: SQLiteObject) => {
+					db.executeSql('UPDATE image SET name=?,base64=? WHERE imageid=?',[this.image.name,this.picture,this.imageid]).then(res => {
+						this.file.removeFile(this.path, name).then(e => {
+							this.savebase64AsFile(this.path, newName, base, this.image.type); 
+							this.navCtrl.pop().then(()=>{
+								this.navCtrl.pop()
+							});
+						}).catch(e => console.log('Image didn\'t remove: ' + e.message));	
+					}).catch(e => console.log(e));                   
+				}).catch(e => console.log('SQLite didn\'t create: ' + e.message));	
+			}
+		}).catch(e => console.log(e));   
 	}
 
 	rotateRight() {

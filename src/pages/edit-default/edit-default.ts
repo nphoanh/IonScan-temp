@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { AuthService } from '../../service/auth.service';
 import { File } from '@ionic-native/file';
@@ -28,7 +28,8 @@ export class EditDefaultPage {
 		public navParams: NavParams,
 		private sqlite: SQLite,
 		private auth: AuthService,
-		private file: File
+		private file: File,
+		private platform: Platform
 		) {
 	}
 
@@ -68,10 +69,13 @@ export class EditDefaultPage {
 
 	savebase64AsFile(folderPath, fileName, base64, contentType){
 		var DataBlob = this.b64toBlob(base64,contentType,512);
-		this.file.writeFile(folderPath, fileName, DataBlob).catch(e => console.log('File didn\'t save: ' + e.message));       
+		this.platform.ready().then(() => {
+			this.file.writeFile(folderPath, fileName, DataBlob).catch(e => console.log('File didn\'t save: ' + e.message));       
+		}).catch(e => console.log(e));    
 	}    		
 
 	updateImage() {
+		this.platform.ready().then(() => {
 		let canvas = document.getElementById('canvasOutputEdit') as HTMLCanvasElement;
 		this.picture = canvas.toDataURL();        
 		let base = this.picture.substr(this.picture.lastIndexOf(',')+1);
@@ -110,6 +114,7 @@ export class EditDefaultPage {
 				});
 			}).catch(e => console.log('SQLite didn\'t create: ' + e.message));	
 		}
+		}).catch(e => console.log(e)); 
 	}
 
 	rotateRight() {

@@ -5,6 +5,10 @@ page-add-image-document {
 		margin-right: 10px;
 	}
 
+	ion-item.itemfolder.item.item-block.item-md {
+		background-color: transparent !important;
+	}
+
 	button.export.disable-hover.item-button.button.button-md.button-outline.button-outline-md {
 		float: right;
 		margin-top: -67px !important;

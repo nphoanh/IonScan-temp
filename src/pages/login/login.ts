@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, MenuController, Platform } from 'ionic-angular';
 import { User } from '../../models/user';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
@@ -27,7 +27,6 @@ export class LoginPage {
   totalFolder = 0;
   folder = { name:"" };
   thisDate: String = new Date().toISOString();
-  path = this.file.externalRootDirectory + 'IonScan';
 
   constructor(
     public navCtrl: NavController, 
@@ -37,7 +36,8 @@ export class LoginPage {
     public menuCtrl:MenuController,   
     private file: File,  
     private sqlite: SQLite,
-    public progress: NgProgress
+    public progress: NgProgress,
+    private platform: Platform
     ) {
     this.menuCtrl.enable(false, 'myMenu');
   }
@@ -55,54 +55,65 @@ export class LoginPage {
   }
 
   createRootFolder(){
-    this.file.createDir(this.file.externalRootDirectory, 'IonScan', false).catch(e => console.log('Folder IonScan didn\'t create: ' + e.message));
+    this.platform.ready().then(() => {
+      this.file.createDir(this.file.externalRootDirectory, 'IonScan', false).catch(e => console.log('Folder IonScan didn\'t create: ' + e.message));
+    }).catch(e => console.log(e));   
   }
 
   async loginPhone(user){      
     try {
-      const appVerifier = this.recaptchaVerifier;
-      const phoneNumberString = "+" + user.phone;
-      let namePhone = phoneNumberString.substr(phoneNumberString.lastIndexOf('+')+1);
-      let nameDBPhone = 'u' + namePhone;
-      let nameDB = nameDBPhone + '.db';
-      let identityFolder = 'Chứng minh thư' + '.' + nameDBPhone;
-      let passportFolder = 'Hộ chiếu' + '.' + nameDBPhone;
-      let documentFolder = 'Tài liệu' + '.' + nameDBPhone;
-      let pdfFolder = 'Pdf' + '.' + nameDBPhone;
-      await firebase.auth().signInWithPhoneNumber(phoneNumberString, appVerifier).then(confirmationResult => {             
-        this.progress.start();
-        let prompt = this.alertCtrl.create({
-          title: 'Nhập mã xác thực',
-          inputs: [{ name: 'confirmationCode', placeholder: 'Mã xác thực' }],
-          buttons: [
-          { text: 'Hủy',
-          handler: data => { console.log('Cancel clicked'); }
-        },
-        { text: 'Gửi',
-        handler: data => {
-          confirmationResult.confirm(data.confirmationCode)
-          .then(result => {
-            this.sqlite.create({ 
-              name: nameDB,
-              location: 'default'
-            }).then((db: SQLiteObject) => {
-              db.executeSql('CREATE TABLE IF NOT EXISTS folder(folderid INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, date TEXT, type TEXT, display TEXT DEFAULT "yes", UNIQUE(name))', {} as any).catch(e => console.log('Folder table didn\'t create: ' + e.message));
-              db.executeSql('CREATE TABLE IF NOT EXISTS image(imageid INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, date TEXT, path TEXT, base64 TEXT, type TEXT DEFAULT "image/png", upload INTEGER DEFAULT 0, folderid, UNIQUE(name), FOREIGN KEY(folderid) REFERENCES folder (folderid))', {} as any).catch(e => console.log('Image table didn\'t create: ' + e.message));
-              db.executeSql('INSERT INTO folder VALUES (3,"Chứng minh thư",?,"Chứng minh thư","no")', [this.thisDate]).catch(e => console.log('Identity didn\'t add to table: ' + e.message));
-              db.executeSql('INSERT INTO folder VALUES (2,"Hộ chiếu",?,"Hộ chiếu","no")', [this.thisDate]).catch(e => console.log('Passport didn\'t add to table: ' + e.message));
-              db.executeSql('INSERT INTO folder VALUES (1,"Tài liệu",?,"Tài liệu","no")', [this.thisDate]).catch(e => console.log('Document didn\'t add to table: ' + e.message));
-              this.file.createDir(this.path, identityFolder, false).catch(e => console.log('Identity didn\'t add to device: ' + e.message));
-              this.file.createDir(this.path, passportFolder, false).catch(e => console.log('Passport didn\'t add to device: ' + e.message));
-              this.file.createDir(this.path, documentFolder, false).catch(e => console.log('Passport didn\'t add to device: ' + e.message));
-              this.file.createDir(this.path, pdfFolder, false).catch(e => console.log('Pdf didn\'t add to device: ' + e.message));             
-            }).catch(e => console.log('SQLite didn\'t create SQLite: ' + e.message));
-            this.navCtrl.setRoot(HomePage);
-          }).catch(error => {this.toast.show(error, '5000', 'center').subscribe(toast => {console.log(toast);})
-        });
-        }}]
-      });this.progress.complete();
-        prompt.present();
-      }).catch(e => console.log('Sign in did not success: ' + e.message));     
+      if(user.phone==null) {
+        this.toast.show('Không được để trống số điện thoại', '5000', 'center').subscribe(toast => console.log(toast));
+      }
+      else {
+        const appVerifier = this.recaptchaVerifier;
+        let cutString = user.phone.substr(user.phone.indexOf('0')+1); 
+        let numberPhone = '+84' + cutString;   
+        let namePhone = numberPhone.substr(numberPhone.lastIndexOf('+')+1);
+        let nameDBPhone = 'u' + namePhone;
+        let nameDB = nameDBPhone + '.db';
+        let identityFolder = 'Chứng minh thư' + '.' + nameDBPhone;
+        let passportFolder = 'Hộ chiếu' + '.' + nameDBPhone;
+        let documentFolder = 'Tài liệu' + '.' + nameDBPhone;
+        let pdfFolder = 'Pdf' + '.' + nameDBPhone;
+        await firebase.auth().signInWithPhoneNumber(numberPhone, appVerifier).then(confirmationResult => {             
+          this.progress.start();
+          let prompt = this.alertCtrl.create({
+            title: 'Nhập mã xác thực',
+            inputs: [{ name: 'confirmationCode', placeholder: 'Mã xác thực' }],
+            buttons: [
+            { text: 'Hủy',
+            handler: data => { console.log('Cancel clicked'); }
+          },
+          { text: 'Gửi',
+          handler: data => {
+            confirmationResult.confirm(data.confirmationCode)
+            .then(result => {
+              this.sqlite.create({ 
+                name: nameDB,
+                location: 'default'
+              }).then((db: SQLiteObject) => {
+                db.executeSql('CREATE TABLE IF NOT EXISTS folder(folderid INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, date TEXT, type TEXT, display TEXT DEFAULT "yes", UNIQUE(name))', {} as any).catch(e => console.log('Folder table didn\'t create: ' + e.message));
+                db.executeSql('CREATE TABLE IF NOT EXISTS image(imageid INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, date TEXT, path TEXT, base64 TEXT, type TEXT DEFAULT "image/png", upload INTEGER DEFAULT 0, folderid, UNIQUE(name), FOREIGN KEY(folderid) REFERENCES folder (folderid))', {} as any).catch(e => console.log('Image table didn\'t create: ' + e.message));
+                db.executeSql('INSERT INTO folder VALUES (3,"Chứng minh thư",?,"Chứng minh thư","no")', [this.thisDate]).catch(e => console.log('Identity didn\'t add to table: ' + e.message));
+                db.executeSql('INSERT INTO folder VALUES (2,"Hộ chiếu",?,"Hộ chiếu","no")', [this.thisDate]).catch(e => console.log('Passport didn\'t add to table: ' + e.message));
+                db.executeSql('INSERT INTO folder VALUES (1,"Tài liệu",?,"Tài liệu","no")', [this.thisDate]).catch(e => console.log('Document didn\'t add to table: ' + e.message));
+                this.platform.ready().then(() => {
+                  let path = this.file.externalRootDirectory + 'IonScan';
+                  this.file.createDir(path, identityFolder, false).catch(e => console.log('Identity didn\'t add to device: ' + e.message));
+                  this.file.createDir(path, passportFolder, false).catch(e => console.log('Passport didn\'t add to device: ' + e.message));
+                  this.file.createDir(path, documentFolder, false).catch(e => console.log('Passport didn\'t add to device: ' + e.message));
+                  this.file.createDir(path, pdfFolder, false).catch(e => console.log('Pdf didn\'t add to device: ' + e.message));             
+                }).catch(e => console.log(e));   
+              }).catch(e => console.log('SQLite didn\'t create SQLite: ' + e.message));
+              this.navCtrl.setRoot(HomePage);
+            }).catch(error => {this.toast.show(error, '5000', 'center').subscribe(toast => {console.log(toast);})
+          });
+          }}]
+        });this.progress.complete();
+          prompt.present();
+        }).catch(e => console.log('Sign in did not success: ' + e.message));   
+      }       
     }
     catch(e) {
       this.toast.show(e.message, '5000', 'center').subscribe(toast => console.log(toast));  
@@ -131,10 +142,13 @@ export class LoginPage {
             db.executeSql('INSERT INTO folder VALUES (3,"Chứng minh thư",?,"Chứng minh thư","no")', [this.thisDate]).catch(e => console.log('Identity didn\'t add to table: ' + e.message));
             db.executeSql('INSERT INTO folder VALUES (2,"Hộ chiếu",?,"Hộ chiếu","no")', [this.thisDate]).catch(e => console.log('Passport didn\'t add to table: ' + e.message));
             db.executeSql('INSERT INTO folder VALUES (1,"Tài liệu",?,"Tài liệu","no")', [this.thisDate]).catch(e => console.log('Document didn\'t add to table: ' + e.message));
-            this.file.createDir(this.path, identityFolder, false).catch(e => console.log('Identity didn\'t add to device: ' + e.message));
-            this.file.createDir(this.path, passportFolder, false).catch(e => console.log('Passport didn\'t add to device: ' + e.message));
-            this.file.createDir(this.path, documentFolder, false).catch(e => console.log('Document didn\'t add to device: ' + e.message));
-            this.file.createDir(this.path, pdfFolder, false).catch(e => console.log('Pdf didn\'t add to device: ' + e.message));       
+            this.platform.ready().then(() => {
+              let path = this.file.externalRootDirectory + 'IonScan';
+              this.file.createDir(path, identityFolder, false).catch(e => console.log('Identity didn\'t add to device: ' + e.message));
+              this.file.createDir(path, passportFolder, false).catch(e => console.log('Passport didn\'t add to device: ' + e.message));
+              this.file.createDir(path, documentFolder, false).catch(e => console.log('Passport didn\'t add to device: ' + e.message));
+              this.file.createDir(path, pdfFolder, false).catch(e => console.log('Pdf didn\'t add to device: ' + e.message));             
+            }).catch(e => console.log(e)); 
           }).catch(e => console.log('SQLite didn\'t create SQLite: ' + e.message));
           this.navCtrl.setRoot(HomePage);
         }

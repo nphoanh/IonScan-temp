@@ -46,15 +46,29 @@ export class CropEditPage {
 		cv.findContours(edge, contours, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
 		for (let i = 0; i < contours.size(); i++) {
 			let cnt = contours.get(i);
+			let area = cv.contourArea(cnt, false);
+			let perim = cv.arcLength(cnt, false);
 			let a=cv.contourArea(cnt,false); 
 			if(a>this.largest_area){
 				this.largest_area=a;
 				this.largest_contour_index=i;              				
-			}  			   
+			}  		
+			this.sortableContour.push({ areaSize: area, perimiterSize: perim, contour: cnt });	   
 		}
-		let color = new cv.Scalar(255,255,0);
-		cv.drawContours(image, contours, this.largest_contour_index, color, 3, cv.LINE_8, hierarchy, 100);		   		
-		cv.imshow('canvasOutputCropEdit', image);
+		let sortableContours = this.sortableContour;
+		sortableContours = sortableContours.sort((item1, item2) => { return (item1.areaSize > item2.areaSize) ? -1 : (item1.areaSize < item2.areaSize) ? 1 : 0; }).slice(0, 5);
+		let approx = new cv.Mat();
+		cv.approxPolyDP(sortableContours[0].contour, approx, .05 * sortableContours[0].perimiterSize, true);
+		let foundContour = null;
+		if (approx.rows == 4) {
+			let color = new cv.Scalar(255,255,0);
+			cv.drawContours(image, contours, this.largest_contour_index, color, 3, cv.LINE_AA, hierarchy, 100);		   		
+			cv.imshow('canvasOutputCropEdit', image);
+		}
+		else{
+			cv.imshow('canvasOutputCropEdit', image);
+			return;
+		}		
 		image.delete(); gray.delete(); edge.delete(); M.delete(); contours.delete(); hierarchy.delete();
 	}
 

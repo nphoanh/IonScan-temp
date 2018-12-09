@@ -41,12 +41,12 @@
 
   <ion-list *ngSwitchCase="'Điện thoại'">
    <ion-item>
-     <ion-input type="number" class="phone" placeholder="84xxxxxxxxxx" [(ngModel)]="user.phone"></ion-input>
+     <ion-input type="number" class="phone" placeholder="0909090909" [(ngModel)]="user.phone"></ion-input>
    </ion-item>
    <button ion-button round outline class="signin" id="sign-in-button" (click)="loginPhone(user);">Đăng nhập</button>
  </ion-list>
 </div>
-<div id="recaptcha-container"></div>
+<div id="recaptcha-container" style="visibility: hidden"></div>
 
 </ion-content>
 

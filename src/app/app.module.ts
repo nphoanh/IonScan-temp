@@ -47,7 +47,6 @@ import { FIREBASE_CONFIG } from './app.firebase.config';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Toast } from '@ionic-native/toast';
 import { AuthService } from '../service/auth.service';
-import { Firebase } from '@ionic-native/firebase';
 import { CameraPreview } from '@ionic-native/camera-preview';
 import { SQLite } from '@ionic-native/sqlite';
 import { File } from '@ionic-native/file';
@@ -56,7 +55,6 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { FileOpener } from '@ionic-native/file-opener';
 import { Camera } from '@ionic-native/camera';
 import { NgProgressModule } from '@ngx-progressbar/core';
-import { FilePath } from '@ionic-native/file-path';
 
 @NgModule({
   declarations: [
@@ -151,12 +149,10 @@ import { FilePath } from '@ionic-native/file-path';
   SplashScreen,
   Toast,
   AuthService,
-  Firebase,
   CameraPreview,
   SQLite,
   SocialSharing,
   FileOpener,
-  FilePath,
   File,
   Camera,
   {provide: ErrorHandler, useClass: IonicErrorHandler}

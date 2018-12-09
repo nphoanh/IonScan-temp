@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform  } from 'ionic-angular';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { AuthService } from '../../service/auth.service';
 import { File } from '@ionic-native/file';
@@ -13,15 +13,14 @@ import { FileOpener } from '@ionic-native/file-opener';
 	templateUrl: 'export.html',
 })
 export class ExportPage {
- 
+	
 	message: string = null;
 	subject: string = null;
 	link: string = null;
 	imageid = this.navParams.get('imageid');	
 	data = this.auth.getEmail();
 	dataPhone = this.auth.getPhone();
-	image = { imageid:"", name:"", date:"", path:"", base64:"", type:"image/png", folderid:"" }; 
-	path = this.file.externalRootDirectory + 'IonScan' + '/' + 'Pdf' + '.';
+	image = { imageid:"", name:"", date:"", path:"", base64:"", type:"image/png", folderid:"" }; 	
 	picture: any;
 
 	constructor(
@@ -32,6 +31,7 @@ export class ExportPage {
 		private file: File,
 		private socialSharing: SocialSharing,
 		private fileOpener: FileOpener,
+		private platform: Platform
 		) {
 	}
 
@@ -90,33 +90,36 @@ export class ExportPage {
 	}
 
 	sharePdf(){
-		var imgData = this.image.base64;
-		var doc = new jsPDF();
-		doc.addImage(imgData, 'PNG', 10, 10);
-		let pdfOutput = doc.output();
-		let buffer = new ArrayBuffer(pdfOutput.length);
-		let array = new Uint8Array(buffer);
-		for (var i = 0; i < pdfOutput.length; i++) { 
-			array[i] = pdfOutput.charCodeAt(i);
-		}
-		let namePdf = this.image.name + '.' + 'pdf';	
+		this.platform.ready().then(() => {
+			let path = this.file.externalRootDirectory + 'IonScan' + '/' + 'Pdf' + '.';
+			var imgData = this.image.base64;
+			var doc = new jsPDF();
+			doc.addImage(imgData, 'PNG', 10, 10);
+			let pdfOutput = doc.output();
+			let buffer = new ArrayBuffer(pdfOutput.length);
+			let array = new Uint8Array(buffer);
+			for (var i = 0; i < pdfOutput.length; i++) { 
+				array[i] = pdfOutput.charCodeAt(i);
+			}
+			let namePdf = this.image.name + '.' + 'pdf';	
 
-		if (this.data != null) {
-			let nameEmail = this.data.substr(0,this.data.lastIndexOf('@'));
-			let pathPdf = this.path + nameEmail;
-			let filePdf = pathPdf + '/' + 	namePdf;
-			this.file.writeFile(pathPdf, namePdf, buffer,{replace:true}).then( e => {
-				this.fileOpener.open(filePdf, 'application/pdf').catch(e => console.log('File didn\'t open: ' + e.message));       	
-			}).catch(err => this.fileOpener.open(filePdf, 'application/pdf').catch(e => console.log('File didn\'t open: ' + e.message)));       	
-		}
-		else {
-			let namePhone = this.dataPhone.substr(this.dataPhone.lastIndexOf('+')+1);
-			let nameDBPhone = 'u' + namePhone;
-			let pathPdf = this.path + nameDBPhone;
-			let filePdf = pathPdf + '/' + 	namePdf;
-			this.file.writeFile(pathPdf, namePdf, buffer,{replace:true}).then( e => {
-				this.fileOpener.open(filePdf, 'application/pdf').catch(e => console.log('File didn\'t open: ' + e.message));       	
-			}).catch(err => this.fileOpener.open(filePdf, 'application/pdf').catch(e => console.log('File didn\'t open: ' + e.message)));       	
-		}
+			if (this.data != null) {
+				let nameEmail = this.data.substr(0,this.data.lastIndexOf('@'));
+				let pathPdf = path + nameEmail;
+				let filePdf = pathPdf + '/' + 	namePdf;
+				this.file.writeFile(pathPdf, namePdf, buffer,{replace:true}).then( e => {
+					this.fileOpener.open(filePdf, 'application/pdf').catch(e => console.log('File didn\'t open: ' + e.message));       	
+				}).catch(err => this.fileOpener.open(filePdf, 'application/pdf').catch(e => console.log('File didn\'t open: ' + e.message)));       	
+			}
+			else {
+				let namePhone = this.dataPhone.substr(this.dataPhone.lastIndexOf('+')+1);
+				let nameDBPhone = 'u' + namePhone;
+				let pathPdf = path + nameDBPhone;
+				let filePdf = pathPdf + '/' + 	namePdf;
+				this.file.writeFile(pathPdf, namePdf, buffer,{replace:true}).then( e => {
+					this.fileOpener.open(filePdf, 'application/pdf').catch(e => console.log('File didn\'t open: ' + e.message));       	
+				}).catch(err => this.fileOpener.open(filePdf, 'application/pdf').catch(e => console.log('File didn\'t open: ' + e.message)));       	
+			}
+		}).catch(e => console.log(e));   
 	}
 }
