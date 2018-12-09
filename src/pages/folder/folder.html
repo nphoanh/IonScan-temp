@@ -1,0 +1,48 @@
+<ion-header>
+  
+	<ion-navbar>
+		<ion-title>{{folder.name}} ({{totalImage}})</ion-title>
+	</ion-navbar>
+	<ng-progress class="folder" [min]="0" [max]="1" [color]="'red'" [meteor]="true" [thick]="true" [spinner]="true"></ng-progress>
+</ion-header>
+
+<ion-content padding>
+
+	<ion-list>
+		<ion-item-sliding class="itemfolder" *ngFor="let image of images; let i=index">
+			<ion-item class="itemfolder" (tap)="editImage(image.imageid,image.name,image.path,image.base64);">
+				<ion-row>
+					<ion-col col-5>
+						<img id="img" [src]="image.base64" style="width: 100px;height: 70px;" /> 
+					</ion-col>
+					<ion-col>
+						<h1 class="titcard">{{image.name}}</h1>
+						<p class="titcard">{{image.date | date: 'H:mm dd/MM/yyyy'}}</p>
+						<img id="check" *ngIf="image.upload!=0" src="../../assets/imgs/check.png" style="width: 20px; height: 20px; ">
+					</ion-col>					
+				</ion-row>			
+			</ion-item>
+			<ion-item-options side="right">
+				<button class="upload" ion-button (tap)="uploadImage(image.imageid);" *ngIf='folder.display!="no"'>
+					<img src="../../assets/imgs/upload.png" style="width: 20px; height: 20px;">
+				</button>
+				<button class="export" ion-button (tap)="exportImage(image.imageid,image.base64);" *ngIf='folder.display!="no"'>
+					<img src="../../assets/imgs/export.png" style="width: 20px; height: 20px;">
+				</button>		
+				<button class="delete" ion-button (tap)="deleteImage(image.imageid);">
+					<img src="../../assets/imgs/delete.png" style="width: 20px; height: 20px;">
+				</button>			
+			</ion-item-options>
+		</ion-item-sliding>
+
+	</ion-list>
+
+	<ion-fab bottom right #fab *ngIf='folder.display!="no"'>
+		<button ion-fab><ion-icon name="add"></ion-icon></button>
+		<ion-fab-list  side="top">
+			<button ion-fab class="folder-open" (click)='addImage();closeButton(fab);'><ion-icon name="folder-open"></ion-icon></button>
+			<button ion-fab class="albums" (click)='pickImage();closeButton(fab);'><ion-icon name="albums"></ion-icon></button>
+		</ion-fab-list>
+	</ion-fab>
+
+</ion-content>

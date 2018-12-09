@@ -1,0 +1,19 @@
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>Đặt lại mật khẩu</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+	<img src="../../assets/imgs/logo-no.png" alt="logo" class="logo">
+	<ion-item>
+		<ion-input type="text" class="email" placeholder="Email" [(ngModel)]="user.email"></ion-input>
+	</ion-item>
+
+	<button ion-button round outline class="reset" (click)="resetPwd(user)">Đặt lại mật khẩu</button>
+
+</ion-content>

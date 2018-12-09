@@ -1,0 +1,52 @@
+<ion-header>
+
+  <ng-progress class="folder" [min]="0" [max]="1" [color]="'red'" [meteor]="true" [thick]="true" [spinner]="true"></ng-progress>
+
+</ion-header>
+
+<ion-content padding>
+
+  <img src="../../assets/imgs/logo-no.png" alt="logo" class="logo">
+
+  <div padding>
+    <ion-segment [(ngModel)]="signin">
+      <ion-segment-button value="Email">
+        Email
+      </ion-segment-button>
+      <ion-segment-button value="Điện thoại">
+        Điện thoại
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="signin">
+
+    <ion-list *ngSwitchCase="'Email'">
+      <ion-item>
+       <ion-input type="text" class="email" placeholder="Email" [(ngModel)]="user.email"></ion-input>
+     </ion-item>
+     <ion-item>
+       <ion-input type="password" class="password" placeholder="Mật khẩu" [(ngModel)]="user.password"></ion-input>
+     </ion-item>
+     <button ion-button round outline class="signin" (click)="login(user);">Đăng nhập</button>
+     <div class="login-footer">
+      <button class="signup" ion-button clear (click)="signup()">
+        Đăng ký
+      </button>
+      <button class="password" (click)="resetPwd()" class="password" ion-button clear>
+        Quên mật khẩu?
+      </button>
+    </div>
+  </ion-list>
+
+  <ion-list *ngSwitchCase="'Điện thoại'">
+   <ion-item>
+     <ion-input type="number" class="phone" placeholder="84xxxxxxxxxx" [(ngModel)]="user.phone"></ion-input>
+   </ion-item>
+   <button ion-button round outline class="signin" id="sign-in-button" (click)="loginPhone(user);">Đăng nhập</button>
+ </ion-list>
+</div>
+<div id="recaptcha-container"></div>
+
+</ion-content>
+

@@ -1,0 +1,175 @@
+page-login {
+	ion-content{
+		background-image: url('../assets/imgs/background.png');
+		background-size: cover;
+		text-align: center;
+	}
+
+	img.logo {
+		margin-top: 50px;
+		width: 150px;
+	}
+
+	button.signup.disable-hover.button.button-md.button-outline.button-outline-md.button-round.button-round-md {
+		background-color: white;
+		color: #67aaf9;
+		opacity: 1;
+		padding: 22px 50px;
+		font-size: 20px;
+		font-weight: bold;
+		border-color: #67aaf9;
+	}
+
+	.input-wrapper {
+		background-color: transparent!important;
+		color: white;
+	}
+
+	.item-input ion-input, .item-input ion-textarea {
+		margin-left: 10px;
+	}
+
+	.singup-error {
+		margin-bottom: 5px;
+		margin-top: 5px;
+	}
+
+	.button-outline-md {
+		border-width: 1px;
+		border-style: solid;
+		border-color: #488aff;
+		color: #488aff;
+		background-color: white;
+		box-shadow: none;
+		opacity: 1!important;
+		padding: 20px 45px!important;
+		font-weight: bold;
+		font-size: 16px;
+	}
+
+	button.back-button.bar-button.bar-button-md.back-button-md.bar-button-default.bar-button-default-md.show-back-button {
+		color: white;
+	}
+
+	.toolbar-title.toolbar-title-md {
+		color: white;
+	}
+
+	ion-item.item.item-block.item-md.item-input.ng-pristine.ng-valid.ng-touched {
+		width: 80%;
+		border-radius: 25px;
+		text-align: center;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: transparent;
+		border-color: white;
+		border-style: solid;
+		border-width: 2px;
+		margin-bottom: 10px;
+	}
+
+
+	ion-item.item.item-block.item-md.item-input.ng-untouched.ng-pristine.ng-valid {
+		width: 80%;
+		border-radius: 25px;
+		text-align: center;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: transparent;
+		border-color: white;
+		border-style: solid;
+		border-width: 2px;
+		margin-bottom: 10px;
+	}
+
+	ion-item.item.item-block.item-md.item-input.ng-untouched.ng-valid.ng-dirty.input-has-value.item-input-has-value {
+		width: 80%;
+		border-radius: 25px;
+		text-align: center;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: transparent;
+		border-color: white;
+		border-style: solid;
+		border-width: 2px;
+		margin-bottom: 10px;
+	}
+
+	ion-item.item.item-block.item-md.item-input.ng-valid.ng-dirty.input-has-value.item-input-has-value.ng-touched {
+		width: 80%;
+		border-radius: 25px;
+		text-align: center;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: transparent;
+		border-color: white;
+		border-style: solid;
+		border-width: 2px;
+		margin-bottom: 10px;
+	}
+
+	ion-item.item.item-block.item-md.item-input.ng-valid.ng-dirty.ng-touched {
+		width: 80%;
+		border-radius: 25px;
+		text-align: center;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: transparent;
+		border-color: white;
+		border-style: solid;
+		border-width: 2px;
+		margin-bottom: 10px;
+	}
+
+	ion-item.item.item-block.item-md.item-input.ng-untouched.ng-valid.ng-dirty {
+		width: 80%;
+		border-radius: 25px;
+		text-align: center;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: transparent;
+		border-color: white;
+		border-style: solid;
+		border-width: 2px;
+		margin-bottom: 10px;
+	}
+
+	button.signup.disable-hover.button.button-md.button-clear.button-clear-md {
+		color: white;
+	}
+
+	button.password.disable-hover.button.button-md.button-clear.button-clear-md {
+		color: white;
+	}
+
+	div#recaptcha-container {
+		margin-left: 15px;
+	}
+
+	ion-segment-button.segment-button.segment-activated {
+		font-size: 15px;
+		color: white;
+	}
+
+	outline.button-outline-md.button-round.button-round-md {
+		color: #67aaf9;
+		border-color: #67aaf9;
+	}
+
+	button.signup.button.button-md.button-clear.button-clear-md {
+		color: white;
+		font-size: 17px;
+	}
+
+	button.password.button.button-md.button-clear.button-clear-md {
+		color: white;
+		font-size: 17px;
+	}
+
+}

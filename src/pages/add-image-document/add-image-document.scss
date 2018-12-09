@@ -1,0 +1,74 @@
+page-add-image-document {
+	button.add.disable-hover.bar-button.bar-button-md.bar-button-default.bar-button-default-md {
+		font-size: 15px;
+		color: white;
+		margin-right: 10px;
+	}
+
+	button.export.disable-hover.item-button.button.button-md.button-outline.button-outline-md {
+		float: right;
+		margin-top: -67px !important;
+		height: 40px;
+		border-radius: 46px;
+		width: 40px;
+		margin-right: 2px;
+		border-color: #aed2fc;
+	}
+
+	ion-icon.icon.icon-md.ion-md-image {
+		font-size: 100px;
+		margin-top: -13px;
+		color: lightgray;
+		margin-left: 10px;
+	}
+
+	ion-card-title.titcard.card-title.card-title-md {
+		text-align: left;
+		font-size: 20px;
+		color: #808080;
+		margin-top: -5px;
+		font-weight: bold;
+	}
+
+	p.titcard-pass {
+		text-align: left !important;
+		font-size: 13px !important;
+		color: gray !important;
+		margin-left: 12px;
+		margin-top: 8px;
+	}
+
+	ion-card.folder.card.card-md {
+		margin-top: -6px;
+		height: 110px;
+	}
+
+	button.camera.fab.fab-md {
+		background-color: #cdecff;
+	}
+
+	ion-item.itemfolder.item.item-block.item-md {
+		height: 90px;
+		margin-top: 10px;
+	}
+
+	h1.titcard-pass {
+		margin-top: 10px !important;
+		font-size: 18px;
+		margin-left: 12px !important;
+	}
+
+	button.export.button.button-md.button-default.button-default-md {
+		background-color: #ffffba;
+		margin-top: 10px;
+	}
+	
+	ion-content.content.content-md {
+		background-color: white!important;
+	}
+
+	button.delete.button.button-md.button-default.button-default-md {
+		background-color: #ffb3ba;
+		margin-top: 10px;
+	}
+}

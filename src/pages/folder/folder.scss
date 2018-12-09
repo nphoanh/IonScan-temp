@@ -1,0 +1,134 @@
+page-folder {
+	button.add.disable-hover.bar-button.bar-button-md.bar-button-default.bar-button-default-md {
+		font-size: 15px;
+		color: white;
+		margin-right: 10px;
+	}
+
+	button.back-button.disable-hover.bar-button.bar-button-md.back-button-md.bar-button-default.bar-button-default-md {
+		color: white;
+	}
+
+	button.delete-no.disable-hover.button.button-md.button-outline.button-outline-md.item-button {
+		float: right;
+		margin-top: -45px !important;
+		height: 40px;
+		border-radius: 46px;
+		width: 40px;
+		border-color: #ffb3ba;
+	}
+
+	ion-fab[bottom] {
+		bottom: 25px;
+		margin-right: 10px;
+	}
+
+	ion-icon.icon.icon-md.ion-md-image {
+		font-size: 100px;
+		margin-top: -13px;
+		color: lightgray;
+		margin-left: 10px;
+	}
+
+	ion-card-title.titcard.card-title.card-title-md {
+		text-align: left;
+		font-size: 20px;
+		color: #808080;
+		margin-top: -5px;
+		font-weight: bold;
+	}
+
+	p.titcard {
+		text-align: left !important;
+		font-size: 13px !important;
+		color: gray !important;
+		margin-top: 8px;
+	}
+
+	ion-card.folder.card.card-md {
+		margin-top: -6px;
+		height: 110px;
+	}
+
+	button.camera.fab.fab-md {
+		background-color: #cdecff;
+	}
+
+	ion-item.itemfolder.item.item-block.item-md {
+		height: 90px;
+		margin-top: 10px;
+	}
+
+	h1.titcard {
+		margin-top: 10px !important;
+		font-size: 18px;
+	}
+
+	button.export.button.button-md.button-default.button-default-md {
+		background-color: #ffffba;
+		margin-top: 10px;
+	}
+
+	button.delete.button.button-md.button-default.button-default-md {
+		background-color: #ffb3ba;
+		margin-top: 10px;
+	}
+
+	label.itemfolder {
+		color: black;
+	}
+
+	ion-icon.icon.icon-md.ion-md-camera {
+		color: black;
+	}
+
+	ion-content.content.content-md {
+		background-color: white!important;
+	}
+
+	button.upload.button.button-md.button-default.button-default-md {
+		background-color: #baffc9;
+		margin-top: 10px;
+	} 
+
+	button.edit.button.button-md.button-default.button-default-md {
+		background-color: #ffdfba;
+		margin-top: 10px;
+	} 
+
+	ion-icon.icon.icon-md.ion-md-folder-open {
+		font-size: 22px;
+	}
+
+	ion-icon.icon.icon-md.ion-md-albums {
+		font-size: 22px;
+	}
+
+	button.folder-open.fab.fab-md.fab-in-list.fab-md-in-list.show {
+		padding-bottom: 25px;
+		padding-top: 25px;
+		padding-left: 25px;
+		padding-right: 25px;
+		margin-bottom: 0px; 
+		background-color: #fcf6bd;
+	}
+
+	button.albums.fab.fab-md.fab-in-list.fab-md-in-list.show {
+		padding-bottom: 25px;
+		padding-top: 25px;
+		padding-left: 25px;
+		padding-right: 25px;
+		margin-bottom: 0px; 
+		background-color: #fcb0b3;
+	}
+
+	button.fab.fab-md {
+		background-color: #67aaf9;
+	}
+
+	img#check {
+		float: right;
+		margin-top: -10px;
+	}
+
+}

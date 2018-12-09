@@ -1,16 +1,106 @@
-// http://ionicframework.com/docs/theming/
+button.back-button.disable-hover.bar-button.bar-button-md.back-button-md.bar-button-default.bar-button-default-md.show-back-button {
+	color: white;
+}
+
+ion-content{
+	background-color: #67aaf9;
+	text-align: center;
+}
+
+ion-list-header.logo-menu.item.item-md.list-header.list-header-md {
+	font-size: 15px;
+	background-color: #67aaf9;
+	border-top-color: transparent;
+	color: white;
+}
+
+button.sub-menu.item.item-block.item-md {
+	background-color: #67aaf9;
+	color: white;
+	margin-left: 20px;
+}
+
+ion-content.menu.content.content-md {
+	background-color: #67aaf9;
+}
+
+img.logo {
+	width: 100px;
+	margin-top: 10px;
+}
+
+ion-item.logo-menu.item.item-block.item-md {
+	background-color: #67aaf9;
+	color: white;
+}
+
+button.logo-menu.item.item-block.item-md {
+	background-color: #67aaf9;
+	color: white;
+}
+
+.toolbar-background.toolbar-background-md {
+	background-color: #67aaf9;
+}
+
+.toolbar-title.toolbar-title-md {
+	color: white;
+}
+
+button.back-button.disable-hover.bar-button.bar-button-md.back-button-md.bar-button-default.bar-button-default-md.show-back-button {
+	color: white;
+}
+
+button.back-button.bar-button.bar-button-md.back-button-md.bar-button-default.bar-button-default-md.show-back-button {
+	color: white;
+}
+
+html, body, ion-app, ion-content, ion-page, .nav-decor {
+	background-color: transparent !important;
+}
+
+ion-content.menu.content.content-md {
+	background-color: #67aaf9!important;
+}
+
+ion-item.item.item-block.item-md.active {
+	background-color: #67aaf9 !important;
+}
+
+button.item.item-block.item-md {
+	background-color: #67aaf9 !important;
+}
+
+ion-col.camera.col {
+	margin-top: -3px;
+	color: white;
+	font-size: 1.6rem;
+	margin-left: -4px;
+}
+
+ion-col.arrow.col {
+	margin-top: -11px;
+	height: 0px;
+	color: white;
+}
+
+ion-item.item.item-block.item-md {
+	background-color: #67aaf9;
+	margin-top: 1px;
+}
+
+button#about {
+	margin-top: -25px;
+}
+
+button#camera {
+	    margin-left: 4px;
+	font-size: 1.6rem;
+	float: left;
+}
+
+ion-label.label.label-md {
+	font-size: 1.6rem;
+}
 
 
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.

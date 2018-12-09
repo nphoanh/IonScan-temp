@@ -1,0 +1,30 @@
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>Thêm thư mục</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+	<form (ngSubmit)="saveFolder()">
+
+		<ion-item >
+			<ion-label>Tên</ion-label>
+			<ion-input [(ngModel)]="folder.name" name="folder">
+			</ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label>Loại</ion-label>
+			<ion-select [(ngModel)]="folder.type" name="type" required="">
+				<ion-option value="Chứng minh thư">Chứng minh thư</ion-option>
+				<ion-option value="Hộ chiếu">Hộ chiếu</ion-option>
+				<ion-option value="Tài liệu">Tài liệu</ion-option>
+			</ion-select>
+		</ion-item>
+		<button ion-button round type="submit">Lưu thư mục</button>
+	</form>
+
+</ion-content>

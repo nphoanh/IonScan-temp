@@ -1,0 +1,81 @@
+page-document {
+	button.camera.fab.fab-md {
+		border: 3px solid #67aaf9;
+		background-color: #0d244c;
+	}
+
+	ion-icon.camera.icon.icon-md.ion-md-camera {
+		color: white;
+	}
+
+	ion-card.frame.card.card-md {
+		color: #DDDDDD;
+		height: 50%;
+		border: 5px solid white;
+		border-radius: 20px;
+		background-color: transparent;
+	}
+
+	ion-card.description.card.card-md {
+		height: 30%;
+		border: 5px solid white;
+		border-radius: 20px;
+		margin-top: 270px;
+	}
+
+	h2.description-doc {
+		font-size: 19px;
+		text-align: left;
+    margin-top: -10px !important;
+	}
+
+	p.description {
+		text-align: left;
+		font-size: 15px;
+	}
+
+	img.doc {
+    margin-left: -8px;
+    margin-top: 5px;
+}
+
+	ion-grid.description.grid {
+		margin-top: 10px;
+		margin-left: 5px;
+	}
+
+	button.disable-hover.bar-buttons.bar-buttons-md.bar-button.bar-button-md.bar-button-default.bar-button-default-md.bar-button-menutoggle.bar-button-menutoggle-md {
+		color: white;
+	}
+
+	button.bar-buttons.bar-buttons-md.bar-button.bar-button-md.bar-button-default.bar-button-default-md.bar-button-menutoggle.bar-button-menutoggle-md {
+		color: white;
+	}	
+
+	button.camera.fab.fab-md {
+		margin-top: -80px;
+	} 
+
+
+	#rect {
+		width: 328px;
+		height: 440px;
+		background-color: rgba(255, 255, 255, 0);
+
+		position: absolute; 
+		left: 16px;
+		top: 16px; 
+		margin: auto;
+
+		max-width: 100%;
+		max-height: 100%;
+		overflow: auto;
+
+		border-width: 20px;
+		border-style: solid;
+		border-image: url('../assets/imgs/border.png')50 round;
+		box-shadow: 0 0 500px 5000px rgba(0, 0, 0, 0.4);
+	}
+
+
+}

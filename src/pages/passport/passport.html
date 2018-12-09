@@ -1,0 +1,42 @@
+<ion-header>
+
+	<ion-navbar>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Hộ chiếu</ion-title>
+		<ion-buttons end>  
+			<button ion-button id="button_flash_off" style="visibility: hidden;" (tap)="flashModeOff();">
+				<ion-icon md="md-flash" style="color:black;"></ion-icon>	
+			</button>
+			<button ion-button id="button_flash_on" (tap)="flashModeOn();">
+				<ion-icon ios="ios-flash" md="md-flash" style="color:white;"></ion-icon>		
+			</button>
+		</ion-buttons> 
+	</ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+	<div id="rectPassport"></div>
+
+	<ion-card class="description">
+		<ion-grid class="description">
+			<ion-row>				
+				<ion-col >								
+					<h2 class="description">Việt Nam, Hộ chiếu<br></h2>		
+					<p class="description">Đặt Hộ chiếu vào khung sao cho các cạnh của Hộ chiếu song song với khung. Nhấn nút chụp</p>					
+				</ion-col>
+				<ion-col col-4>
+					<img src="../../assets/imgs/pass.png" alt="pass" class="pass" style="width: 100px; height: 100px;">
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</ion-card>
+
+	<ion-fab bottom center #fab>
+		<button class="camera" ion-fab (tap)="takePicture()"><ion-icon class="camera"  name="camera"></ion-icon></button>
+	</ion-fab>
+
+</ion-content>

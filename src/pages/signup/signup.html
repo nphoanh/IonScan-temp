@@ -1,0 +1,23 @@
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>Đăng ký</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+	<img src="../../assets/imgs/logo-no.png" alt="logo" class="logo">
+
+	<ion-item>
+		<ion-input type="text" class="email" placeholder="Email" [(ngModel)]="user.email"></ion-input>
+	</ion-item>
+
+	<ion-item>
+		<ion-input type="password" class="password" placeholder="Mật khẩu" [(ngModel)]="user.password"></ion-input>
+	</ion-item>
+
+	<button ion-button round outline class="signup" (click)="signup(user)">Đăng ký</button>
+
+</ion-content>

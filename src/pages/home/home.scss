@@ -1,3 +1,198 @@
 page-home {
+	.icon.icon-md.ion-md-menu {
+		color: white;
+	}
+	
+	ion-item.item.item-block.item-md {
+		background-color: white;
+	}
 
+	ion-item-sliding.folder-list.item-wrapper {
+		margin-left: -5px;
+	}
+
+	.toolbar-background.toolbar-background-md {
+		background-color: #67aaf9;
+	}
+
+	.toolbar-title.toolbar-title-md {
+		color: white;
+	}
+
+	.fab.fab-md {  
+		padding-left: 14px;
+		padding-right: 14px;
+		padding-bottom: 26px;
+		padding-top: 26px;
+		box-shadow: 0px 3px 7px 1px #D3D3D3;
+		background-color: #67aaf9;
+	}
+
+	.card.card-md {
+		margin-top: -6px;
+		margin-left: -3px;
+		width:102%;
+		max-height:100px;
+		min-height:100px;
+	}
+
+	.titcard.card-title.card-title-md {
+		margin-left: -10px;
+		font-size: 17px;
+	}
+
+	.card-md p {
+		margin-left: -10px;
+		margin-top: -6px;
+		color: #C0C0C0;
+	}
+
+	ion-icon.icon.icon-md.ion-md-camera {
+		font-size: 22px;
+	}
+
+	ion-icon.icon.icon-md.ion-md-albums {
+		font-size: 22px;
+	}
+
+	button.camera.fab.fab-md.fab-in-list.fab-md-in-list.show {
+		padding-bottom: 25px;
+		padding-top: 25px;
+		padding-left: 25px;
+		padding-right: 25px;
+		margin-bottom: 0px; 
+		background-color: #fcf6bd;
+	}
+
+	button.albums.fab.fab-md.fab-in-list.fab-md-in-list.show {
+		padding-bottom: 25px;
+		padding-top: 25px;
+		padding-left: 25px;
+		padding-right: 25px;
+		margin-bottom: 0px; 
+		background-color: #fcb0b3;
+	}
+
+	ion-card-content.card-content.card-content-md {
+		margin-top: -10px;
+	}
+
+	button.disable-hover.button.button-md.button-default.button-default-md.button-small.button-small-md {
+		margin-top: -28px;
+		background-color: white;
+		color: #67aaf9;
+		box-shadow: 0px 0px;
+	}
+
+	button.trash.disable-hover.button.button-md.button-default.button-default-md.button-small.button-small-md {
+		margin-left: 106px;
+		margin-right: -10px;
+	}
+
+
+	button.add.disable-hover.bar-button.bar-button-md.bar-button-default.bar-button-default-md {
+		font-size: 15px;
+		color: white;
+		margin-right: 10px;
+	}
+
+	ion-icon.icon.icon-md.ion-md-folder {
+		font-size: 90px;
+		margin-top: -18px;
+		color: lightgray;
+	}
+
+	ion-card-title.titcard.card-title.card-title-md {
+		text-align: left;
+		font-size: 20px;
+		margin-top: -5px;
+		color: #808080;
+		font-weight: bold;
+	}
+
+	p.titcard {
+		text-align: left !important;
+		font-size: 13px !important;
+		color: gray !important;
+	}
+
+	p.cate {
+		text-align: left !important;
+		font-size: 12px !important;
+		color: #D3D3D3;
+		margin-top: 7px;
+	}
+
+	button.add.bar-button.bar-button-md.bar-button-default.bar-button-default-md {
+		color: white;
+		margin-right: 5px;
+		font-size: 16px;
+	}
+
+	button.item.disable-hover.button.button-md.button-default.button-default-md {
+		background-color: white;
+	}
+
+	ion-item.itemfolder.item.item-block.item-md {
+		height: 90px;
+		margin-top: 10px;
+	}
+
+	h1.titcard {
+		margin-top: 15px!important;
+		font-size: 18px;
+	}
+
+	button.upload.button.button-md.button-default.button-default-md {
+		background-color: #baffc9;
+		margin-top: 10px;
+	} 
+
+	button.delete.button.button-md.button-default.button-default-md {
+		background-color: #ffb3ba;
+		margin-top: 10px;
+	}
+
+	label.itemfolder {
+		color: black;
+	}
+
+	ion-col.itemfolder.col {
+		margin-top: -10px;
+	}
+
+	ion-content.content.content-md {
+		background-color: white!important;
+	}
+
+	.alert-wrapper {
+		width: 100%;
+	}
+	
+	ion-item.itemfolder.item.item-block.item-md {
+		border-bottom: 1px solid lightgray;
+	}
+
+	ion-item.item.item-block.item-md {
+		height: 80px;
+		margin-top: 10px;
+	}
+
+	button.disable-hover.button.button-md.button-default.button-default-md.button-md-danger {
+		height: 80px;
+		margin-top: 10px;
+	}
+
+	img.group {
+		margin-top: -10px;
+	}
+
+	button.edit.button.button-md.button-default.button-default-md {
+		background-color: #ffffba;
+		margin-top: 10px;
+	}
+
+	h2.titcard {
+		margin-top: 17px !important;
+	}
 }

@@ -1,0 +1,36 @@
+<ion-header>
+
+	<ion-navbar>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Hộ chiếu ({{totalImage}})</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+	<ion-list>
+		<ion-item-sliding class="itemfolder" *ngFor="let image of images; let i=index">
+			<ion-item class="itemfolder" (tap)="editImage(image.imageid,image.name,image.path,image.base64);">
+				<ion-row>
+					<ion-col col-5>
+						<img id="img" [src]="image.base64" style="width: 100px;height: 70px;" /> 
+					</ion-col>
+					<ion-col>
+						<h1 class="titcard">{{image.name}}</h1>
+						<p class="titcard">{{image.date | date: 'H:mm dd/MM/yyyy'}}</p>
+					</ion-col>					
+				</ion-row>			
+			</ion-item>
+			<ion-item-options side="right">
+				<button class="delete" ion-button (tap)="deleteImage(image.imageid);">
+					<img src="../../assets/imgs/delete.png" style="width: 20px; height: 20px;">
+				</button>			
+			</ion-item-options>
+		</ion-item-sliding>
+
+	</ion-list>
+
+</ion-content>

@@ -1,0 +1,32 @@
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>Ảnh hộ chiếu ({{totalImage}})</ion-title>		
+	</ion-navbar>
+	
+</ion-header>
+
+<ion-content padding>
+
+	<ion-list>
+
+		<ion-item-sliding class="itemfolder" *ngFor="let image of images; let i=index">
+			<ion-item class="itemfolder">
+				<ion-row>
+					<ion-col col-4>
+						<img id="img" src={{image.base64}} style="width: 100px;height: 70px;" /> 
+					</ion-col>
+					<ion-col>
+						<h1 class="titcard-pass">{{image.name}}</h1>
+						<p class="titcard-pass">{{image.date | date: 'H:mm dd/MM/yyyy'}}</p>		
+					</ion-col>			
+				</ion-row>
+				<button ion-button outline class="export" (tap)="moveImage(image.imageid);">
+					<img class="group" src="../../assets/imgs/add-2.png" style="width: 20px; height: 20px;">
+				</button>
+			</ion-item>			
+		</ion-item-sliding>
+
+	</ion-list>
+
+</ion-content>

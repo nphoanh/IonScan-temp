@@ -1,0 +1,32 @@
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>Cắt ảnh</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+	
+	<canvas id="canvasOutput"></canvas>
+	
+	<img id="img" [src]="picture" *ngIf="picture" style="visibility: hidden;"/> 
+
+</ion-content>
+
+<ion-footer>
+
+	<ion-grid class="button-group">
+		<ion-row>
+			<button class="button-group" (tap)="crop();">
+				<ion-icon class="crop" name="crop"></ion-icon>
+				<br><label>Cắt</label>
+			</button>			
+			<button class="button-group" (tap)="saveImage();">
+				<ion-icon class="save" name="checkmark"></ion-icon>
+				<br><label>Xong</label>
+			</button>
+		</ion-row>
+	</ion-grid>
+
+</ion-footer>

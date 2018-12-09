@@ -1,0 +1,20 @@
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>Chỉnh sửa thư mục</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+	<form (ngSubmit)="updateFolder(folderid)">
+		<ion-item>
+			<ion-label>Tên</ion-label>
+			<ion-input [(ngModel)]="folder.name" name="name" required=""></ion-input>
+		</ion-item>		
+		<ion-input type="hidden" [(ngModel)]="folder.folderid" name="folderid"></ion-input>
+		<button ion-button round type="submit">Chỉnh sửa thư mục</button>
+	</form>
+
+</ion-content>

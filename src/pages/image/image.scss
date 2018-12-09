@@ -1,0 +1,122 @@
+page-image {
+   ion-content.content.content-md {
+    background-color: white !important;
+}
+
+.text-input::-moz-placeholder {
+  color: white;
+}
+
+.text-input:-ms-input-placeholder {
+  color: white;
+}
+
+.text-input::-webkit-input-placeholder {
+  text-indent: 0;
+  color: white;
+}
+
+button.back-button.disable-hover.bar-button.bar-button-md.back-button-md.bar-button-default.bar-button-default-md.show-back-button {
+    color: white;
+}
+
+button.disable-hover.bar-button.bar-button-md.bar-button-outline.bar-button-outline-md.bar-button-round.bar-button-round-md {
+    color: white;
+    border-color: white;
+    border-radius: 18px;
+    padding: 17px;
+    font-weight: bold;
+}
+
+button.disable-hover.button.button-md.button-default.button-default-md.button-block.button-block-md {
+    background-color: white;
+    color: #67aaf9;
+    box-shadow: 0px 0px;
+}
+
+.displayImage {
+    max-height: 460px;
+    max-width: 328px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input.text-input.text-input-md {
+    border-bottom: 1px dotted white;
+    width: 90%;
+}
+
+button.button-group {
+    background-color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+label {
+    color: #67aaf9;
+}
+
+button.disable-hover.bar-button.bar-button-md.bar-button-default.bar-button-default-md {
+    font-size: 20px;
+    color: white;
+    margin-right: 6px;
+} 
+
+ion-input.title.input.input-md.ng-valid.ng-dirty.ng-touched {
+    color: white;
+    font-size: 2rem;
+}
+
+ion-input.title.input.input-md.ng-untouched.ng-dirty.ng-valid {
+    color: white;
+    font-size: 2rem;
+}
+
+ion-icon.crop.icon.icon-md.ion-md-crop {
+    font-size: 25px;
+    color: #67aaf9;
+}
+
+ion-icon.save.icon.icon-md.ion-md-checkmark {
+    font-size: 25px;
+    color: #67aaf9;
+}
+
+img#filter {
+    width: 78px;
+    height: 65px;
+    margin-top: 5px;
+}
+label.filter {
+    text-align: center !important;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 5px;
+    color: black;
+}
+div#filter {
+    border-bottom-color: #D3D3D3;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+div#origin {
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+ion-icon.filter.icon.icon-md.ion-md-color-wand {
+    font-size: 25px;
+    color: #67aaf9;
+}
+
+canvas#canvasOutputPick {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+}

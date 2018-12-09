@@ -1,0 +1,29 @@
+ <ion-header>
+ 
+ 	<ion-navbar>
+ 		<ion-title>Hộ chiếu</ion-title>  		
+ 	</ion-navbar> 
+
+ </ion-header>
+
+ <ion-content padding>
+
+ 	<img id="img" [src]="picture" *ngIf="picture" /> 
+
+ </ion-content>
+
+ <ion-footer>
+	<ion-grid class="button-group">
+		<ion-row>
+			<button class="button-group" (tap)="shareImage()">
+				<img class="rotate" src="../../assets/imgs/imageshare.png" style="width: 25px; height: 25px;">
+				<br><label>Chia sẻ ảnh</label>
+			</button>
+			<button class="button-group" (tap)="sharePdf();">
+				<img class="rotate" src="../../assets/imgs/pdf.png" style="width: 25px; height: 25px;">
+				<br><label>Chia sẻ PDF</label>
+			</button>						
+		</ion-row>
+	</ion-grid>
+
+</ion-footer>

@@ -1,19 +1,53 @@
-<ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-menu id="myMenu" [content]="content">
 
-  <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+  <ion-content class="menu"> 
+
+    <ion-list class="logo-menu">
+
+      <img class="logo-menu" src="../assets/imgs/logo-no.png" alt="logo" class="logo">
+
+      <ion-list-header class="logo-menu" *ngIf="auth.getEmail()">Chào, {{auth.getEmail()}}</ion-list-header>
+      <ion-list-header class="logo-menu" *ngIf="auth.getPhone()">Chào, {{auth.getPhone()}}</ion-list-header>
+
+      <button class="logo-menu" menuClose ion-item *ngFor="let f of folderPage" (click)="openPage(f)">
+        <ion-icon name="folder" ></ion-icon>        
+        &nbsp;&nbsp;{{f.title}}
       </button>
+
+      <button class="sub-menu" menuClose ion-item *ngFor="let s of subfolders" (click)="openPage(s)">
+        <ion-icon name="folder"></ion-icon>        
+        &nbsp;&nbsp;{{s.title}}
+      </button>
+
+      <ion-list class="sub" >
+        <ion-item text-wrap (click)="toggleGroup(i)" [ngClass]="{active: isGroupShown(i)}">
+          <ion-row > 
+            <ion-col col-11 class="camera"><ion-icon name="camera"></ion-icon>&nbsp;&nbsp;&nbsp;Chụp ảnh</ion-col>
+            <ion-col col-1 class="arrow"><ion-icon color="success" item-right [name]="isGroupShown(i) ? 'ios-arrow-down-outline' : 'ios-arrow-forward'"></ion-icon></ion-col>
+          </ion-row>
+          <ion-row *ngIf="isGroupShown(i)">
+            <ion-list>
+              <button class="logo-menu" id="camera" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+                <ion-icon name="camera"></ion-icon>&nbsp;&nbsp;&nbsp;{{p.title}}
+              </button>
+            </ion-list>
+          </ion-row>
+        </ion-item>
+      </ion-list>   
+
+      <button class="logo-menu" id="about" menuClose ion-item *ngFor="let a of aboutPage" (click)="openPage(a)">
+        <ion-icon name="people" ></ion-icon>        
+        &nbsp;&nbsp;{{a.title}}
+      </button>
+
+      <button class="logo-menu" menuClose ion-item (click)="logout()" *ngIf="auth.authenticated">
+        <ion-icon name="log-out" ></ion-icon>&nbsp;&nbsp;Đăng xuất
+      </button>
+      
     </ion-list>
+
   </ion-content>
 
 </ion-menu>
 
-<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
