@@ -21,7 +21,7 @@ imagename = this.navParams.get("imagename");
 		) {
 	} 
 
-	ionViewDidLoad() {
+	ionViewWillEnter() {
 		this.initializeCamera();
 	}
 

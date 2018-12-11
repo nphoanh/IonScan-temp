@@ -18,7 +18,7 @@ export class DocumentPage {
   	) {
   }
 
-ionViewDidLoad() {
+ionViewWillEnter() {
     this.initializeCamera();
   }
 

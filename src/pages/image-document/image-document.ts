@@ -208,7 +208,7 @@ export class ImageDocumentPage {
         let src = cv.imread('imgDoc');
         let dst = new cv.Mat();
         cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY, 0);
-        cv.adaptiveThreshold(src, dst, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 11, 12);
+        cv.threshold(dst, dst, 100, 255, cv.THRESH_BINARY);
         cv.imshow('canvasOutputDoc', dst);
         src.delete(); dst.delete(); 
     }

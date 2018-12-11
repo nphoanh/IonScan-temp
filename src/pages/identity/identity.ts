@@ -18,7 +18,7 @@ export class IdentityPage {
 		) {
 	} 
 
-	ionViewDidLoad() {
+	ionViewWillEnter() {
 		this.initializeCamera();
 	}
 

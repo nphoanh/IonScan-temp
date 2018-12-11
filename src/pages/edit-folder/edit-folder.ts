@@ -79,7 +79,7 @@ export class EditFolderPage {
 					location: 'default'
 				}).then((db: SQLiteObject) => {
 					db.executeSql('UPDATE folder SET name=? WHERE folderid=?',[this.folder.name,this.folder.folderid]).then(res => {
-						if (this.folder.name!=null) {
+						if (this.folder.name!='') {
 							this.file.copyDir(this.path, oldName, this.path, name).catch(e => console.log('Folder didn\'t copy: ' + e.message));
 							this.file.removeRecursively(this.path, oldName).catch(e => console.log('Folder didn\'t remove: ' + e.message));
 							this.navCtrl.popToRoot();
@@ -101,7 +101,7 @@ export class EditFolderPage {
 					location: 'default'
 				}).then((db: SQLiteObject) => {			
 					db.executeSql('UPDATE folder SET name=? WHERE folderid=?',[this.folder.name,this.folder.folderid]).then(res => {
-						if (this.folder.name!=null) {
+						if (this.folder.name!='') {
 							this.file.copyDir(this.path, oldName, this.path, name).catch(e => console.log('Folder didn\'t copy: ' + e.message));
 							this.file.removeRecursively(this.path, oldName).catch(e => console.log('Folder didn\'t remove: ' + e.message));
 							this.navCtrl.popToRoot();

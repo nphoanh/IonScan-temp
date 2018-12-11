@@ -18,7 +18,7 @@ export class PassportPage {
     ) {
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.initializeCamera();
   }
 

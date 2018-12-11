@@ -56,7 +56,6 @@ export class CropDocumentPage {
 		sortableContours = sortableContours.sort((item1, item2) => { return (item1.areaSize > item2.areaSize) ? -1 : (item1.areaSize < item2.areaSize) ? 1 : 0; }).slice(0, 5);
 		let approx = new cv.Mat();
 		cv.approxPolyDP(sortableContours[0].contour, approx, .05 * sortableContours[0].perimiterSize, true);
-		let foundContour = null;
 		if (approx.rows == 4) {
 			let color = new cv.Scalar(255,255,0);
 			cv.drawContours(image, contours, this.largest_contour_index, color, 3, cv.LINE_AA, hierarchy, 100);		   		
